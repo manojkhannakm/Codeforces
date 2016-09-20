@@ -1,3 +1,5 @@
+package round338div2;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
@@ -6,7 +8,7 @@ import java.util.StringTokenizer;
  * @author Manoj Khanna
  */
 
-public class A_old {
+public class A {
 
     private static InputReader in;
     private static PrintWriter out = new PrintWriter(System.out);
@@ -31,17 +33,41 @@ public class A_old {
 
         public void solve() {
             int n = in.nextInt(),
-                    x = in.nextInt();
+                    m = in.nextInt();
 
-            int s = 0;
+            int[][] y = new int[n][];
 
-            for (int i = 1; i <= n; i++) {
-                if (x % i == 0 && x / i <= n) {
-                    s++;
+            for (int i = 0; i < n; i++) {
+                int xi = in.nextInt();
+
+                int[] yi = new int[xi];
+                y[i] = yi;
+
+                for (int j = 0; j < xi; j++) {
+                    int yij = in.nextInt();
+
+                    yi[j] = yij;
                 }
             }
 
-            out.println(s);
+            boolean[] b = new boolean[m];
+
+            for (int[] yi : y) {
+                for (int yij : yi) {
+                    b[yij - 1] = true;
+                }
+            }
+
+            boolean f = true;
+
+            for (boolean bi : b) {
+                if (!bi) {
+                    f = false;
+                    break;
+                }
+            }
+
+            out.println(f ? "YES" : "NO");
         }
 
     }

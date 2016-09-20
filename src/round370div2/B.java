@@ -1,3 +1,5 @@
+package round370div2;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
@@ -6,7 +8,7 @@ import java.util.StringTokenizer;
  * @author Manoj Khanna
  */
 
-public class A {
+public class B {
 
     private static InputReader in;
     private static PrintWriter out = new PrintWriter(System.out);
@@ -30,42 +32,43 @@ public class A {
     private static class Solution {
 
         public void solve() {
-            int n = in.nextInt(),
-                    m = in.nextInt();
+            String s = in.nextLine();
 
-            int[][] y = new int[n][];
+            if (s.length() % 2 == 0) {
+                int[] x = new int[4];
 
-            for (int i = 0; i < n; i++) {
-                int xi = in.nextInt();
+                for (int i = 0; i < s.length(); i++) {
+                    char c = s.charAt(i);
 
-                int[] yi = new int[xi];
-                y[i] = yi;
+                    switch (c) {
+                        case 'L':
+                            x[0]++;
+                            break;
 
-                for (int j = 0; j < xi; j++) {
-                    int yij = in.nextInt();
+                        case 'R':
+                            x[1]++;
+                            break;
 
-                    yi[j] = yij;
+                        case 'U':
+                            x[2]++;
+                            break;
+
+                        case 'D':
+                            x[3]++;
+                            break;
+                    }
                 }
-            }
 
-            boolean[] b = new boolean[m];
-
-            for (int[] yi : y) {
-                for (int yij : yi) {
-                    b[yij - 1] = true;
+                if (x[0] != x[1] && x[2] != x[3]) {
+                    out.println((Math.abs(x[0] - x[1]) + Math.abs(x[2] - x[3])) / 2);
+                } else if (x[0] != x[1]) {
+                    out.println(Math.abs(x[0] - x[1]) / 2);
+                } else {
+                    out.println(Math.abs(x[2] - x[3]) / 2);
                 }
+            } else {
+                out.println(-1);
             }
-
-            boolean f = true;
-
-            for (boolean bi : b) {
-                if (!bi) {
-                    f = false;
-                    break;
-                }
-            }
-
-            out.println(f ? "YES" : "NO");
         }
 
     }
