@@ -1,14 +1,15 @@
-package round294div2;
+package div2.round294;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 
 /**
  * @author Manoj Khanna
  */
 
-public class B {
+public class A {
 
     private static InputReader in;
     private static PrintWriter out = new PrintWriter(System.out);
@@ -31,27 +32,40 @@ public class B {
 
     private static class Solution {
 
-        public static final int MAX = 100010;
-        private static int[][] a = new int[3][MAX];
-
         public void solve() {
-            int n = in.nextInt();
+            HashMap<Character, Integer> weightMap = new HashMap<>();
+            weightMap.put('q', 9);
+            weightMap.put('r', 5);
+            weightMap.put('b', 3);
+            weightMap.put('n', 3);
+            weightMap.put('p', 1);
 
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < n - i; j++) {
-                    a[i][j] = in.nextInt();
-                }
+            int white = 0, black = 0;
+            for (int i = 0; i < 8; i++) {
+                String line = in.nextLine();
 
-                Arrays.sort(a[i], 0, n - i);
-            }
+                for (int j = 0; j < 8; j++) {
+                    char c = line.charAt(j);
 
-            for (int i = 0; i < 2; i++) {
-                for (int j = 0; j < n - i; j++) {
-                    if (a[i][j] != a[i + 1][j]) {
-                        out.println(a[i][j]);
-                        break;
+                    Integer weight = weightMap.get(Character.toLowerCase(c));
+                    if (weight == null) {
+                        continue;
+                    }
+
+                    if (Character.isUpperCase(c)) {
+                        white += weight;
+                    } else {
+                        black += weight;
                     }
                 }
+            }
+
+            if (white > black) {
+                out.print("White");
+            } else if (white < black) {
+                out.print("Black");
+            } else {
+                out.print("Draw");
             }
         }
 

@@ -1,4 +1,4 @@
-package round338div2;
+package div2.round374;
 
 import java.io.*;
 import java.util.Arrays;
@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
  * @author Manoj Khanna
  */
 
-public class A {
+public class B {
 
     private static InputReader in;
     private static PrintWriter out = new PrintWriter(System.out);
@@ -31,43 +31,40 @@ public class A {
 
     private static class Solution {
 
+        private static final int C_MAX = 110;
+
         public void solve() {
             int n = in.nextInt(),
-                    m = in.nextInt();
+                    k = in.nextInt();
 
-            int[][] y = new int[n][];
+            String[] s = new String[n];
 
             for (int i = 0; i < n; i++) {
-                int xi = in.nextInt();
-
-                int[] yi = new int[xi];
-                y[i] = yi;
-
-                for (int j = 0; j < xi; j++) {
-                    int yij = in.nextInt();
-
-                    yi[j] = yij;
-                }
+                s[i] = in.nextLine();
             }
 
-            boolean[] b = new boolean[m];
+            String t = in.nextLine();
 
-            for (int[] yi : y) {
-                for (int yij : yi) {
-                    b[yij - 1] = true;
-                }
+            int[] c = new int[C_MAX];
+
+            for (int i = 0; i < n; i++) {
+                c[s[i].length()]++;
             }
 
-            boolean f = true;
+            int x = 0;
 
-            for (boolean bi : b) {
-                if (!bi) {
-                    f = false;
-                    break;
-                }
+            for (int i = 1; i < t.length(); i++) {
+                x += c[i];
             }
 
-            out.println(f ? "YES" : "NO");
+            int y = x + c[t.length()];
+
+            x++;
+
+            x = (x % k == 0 ? x / k - 1 : x / k) * 5 + x;
+            y = (y % k == 0 ? y / k - 1 : y / k) * 5 + y;
+
+            out.println(x + " " + y);
         }
 
     }

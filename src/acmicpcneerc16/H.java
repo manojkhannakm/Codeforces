@@ -1,6 +1,7 @@
-package round370div2;
+package acmicpcneerc16;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
@@ -8,7 +9,7 @@ import java.util.StringTokenizer;
  * @author Manoj Khanna
  */
 
-public class A {
+public class H {
 
     private static InputReader in;
     private static PrintWriter out = new PrintWriter(System.out);
@@ -32,21 +33,71 @@ public class A {
     private static class Solution {
 
         public void solve() {
-            int n = in.nextInt();
+            int n = in.nextInt(),
+                    m = in.nextInt();
 
-            int[] a = new int[n];
+            char[][] s = new char[n][];
 
             for (int i = 0; i < n; i++) {
-                int ai = in.nextInt();
-
-                a[i] = ai;
+                s[i] = in.nextLine().toCharArray();
             }
 
-            for (int i = 0; i < n - 1; i++) {
-                out.print(a[i] + a[i + 1] + " ");
+            int[] a = new int[m];
+
+            for (int i = 0; i < m; i++) {
+                a[i] = in.nextInt() - 1;
             }
 
-            out.println(a[n - 1]);
+            for (int i = 1; i < m; i++) {
+                if (s[a[i]].length != s[a[0]].length) {
+                    out.println("No");
+                    return;
+                }
+            }
+
+            int l = s[a[0]].length;
+            char[] p = new char[l];
+
+            for (int i = 0; i < l; i++) {
+                p[i] = s[a[0]][i];
+            }
+
+            for (int i = 0; i < l; i++) {
+                for (int j = 1; j < m; j++) {
+                    if (s[a[j]][i] != p[i]) {
+                        p[i] = '?';
+                        break;
+                    }
+                }
+            }
+
+            ArrayList<Integer> list = new ArrayList<>();
+
+            for (int ai : a) {
+                list.add(ai);
+            }
+
+            for (int i = 0; i < n; i++) {
+                if (!list.contains(i) &&
+                        s[i].length == p.length) {
+                    boolean f = true;
+
+                    for (int j = 0; j < l; j++) {
+                        if (p[j] != '?' && s[i][j] != p[j]) {
+                            f = false;
+                            break;
+                        }
+                    }
+
+                    if (f) {
+                        out.println("No");
+                        return;
+                    }
+                }
+            }
+
+            out.println("Yes");
+            out.println(p);
         }
 
     }

@@ -1,4 +1,4 @@
-package round1;
+package div2.round292;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -15,10 +15,11 @@ public class A {
 //		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("in.txt")));
 
         StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-        long n = Long.parseLong(stringTokenizer.nextToken()),
-                m = Long.parseLong(stringTokenizer.nextToken()),
-                a = Long.parseLong(stringTokenizer.nextToken());
-        System.out.println(((long) (Math.ceil((double) n / a) * Math.ceil((double) m / a))));
+        long a = Math.abs(Long.parseLong(stringTokenizer.nextToken())),
+                b = Math.abs(Long.parseLong(stringTokenizer.nextToken())),
+                s = Long.parseLong(stringTokenizer.nextToken());
+        long l = s - (a + b);
+        System.out.println(l >= 0 && l % 2 == 0 ? "Yes" : "No");
     }
 
 }

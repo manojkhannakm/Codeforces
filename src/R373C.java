@@ -1,5 +1,3 @@
-package round370div2;
-
 import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
@@ -8,7 +6,7 @@ import java.util.StringTokenizer;
  * @author Manoj Khanna
  */
 
-public class B {
+public class R373C {
 
     private static InputReader in;
     private static PrintWriter out = new PrintWriter(System.out);
@@ -32,42 +30,22 @@ public class B {
     private static class Solution {
 
         public void solve() {
+            int n = in.nextInt(),
+                    t = in.nextInt();
+
             String s = in.nextLine();
 
-            if (s.length() % 2 == 0) {
-                int[] x = new int[4];
+            int d ;
 
-                for (int i = 0; i < s.length(); i++) {
-                    char c = s.charAt(i);
-
-                    switch (c) {
-                        case 'L':
-                            x[0]++;
-                            break;
-
-                        case 'R':
-                            x[1]++;
-                            break;
-
-                        case 'U':
-                            x[2]++;
-                            break;
-
-                        case 'D':
-                            x[3]++;
-                            break;
-                    }
+            for (int i = 0; i < n; i++) {
+                if (s.charAt(i) == '.') {
+                    d = i;
+                    break;
                 }
+            }
 
-                if (x[0] != x[1] && x[2] != x[3]) {
-                    out.println((Math.abs(x[0] - x[1]) + Math.abs(x[2] - x[3])) / 2);
-                } else if (x[0] != x[1]) {
-                    out.println(Math.abs(x[0] - x[1]) / 2);
-                } else {
-                    out.println(Math.abs(x[2] - x[3]) / 2);
-                }
-            } else {
-                out.println(-1);
+            for (int i = n - 1; i >= 0; i--) {
+
             }
         }
 

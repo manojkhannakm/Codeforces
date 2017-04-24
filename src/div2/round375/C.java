@@ -1,4 +1,4 @@
-package round294div2;
+package div2.round375;
 
 import java.io.*;
 import java.util.Arrays;
@@ -35,20 +35,59 @@ public class C {
             int n = in.nextInt(),
                     m = in.nextInt();
 
-            int res = 0;
-            while (n > 0 && m > 0 && n + m >= 3) {
-                if (n < m) {
-                    n--;
-                    m -= 2;
-                } else {
-                    n -= 2;
-                    m--;
-                }
+            int[] a = new int[n];
 
-                res++;
+            for (int i = 0; i < n; i++) {
+                a[i] = in.nextInt();
             }
 
-            out.print(res);
+            int[] b = new int[m + 1];
+
+            for (int i = 0; i < n; i++) {
+                int ai = a[i];
+
+                if (ai > m) {
+                    b[0]++;
+                } else {
+                    b[ai]++;
+                }
+            }
+
+            int x = n / m,
+                    y = 0;
+
+            for (int i = 0; i < n; i++) {
+                int ai = a[i];
+
+                if (ai > m) {
+                    ai = 0;
+                }
+
+                if (ai == 0 && b[ai] > 0
+                        || ai > 0 && b[ai] > x) {
+                    for (int j = 1; j <= m; j++) {
+                        if (b[j] < x) {
+                            b[ai]--;
+                            b[j]++;
+
+                            a[i] = j;
+
+                            y++;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            out.println(x + " " + y);
+
+            for (int i = 0; i < n; i++) {
+                if (i > 0) {
+                    out.print(" ");
+                }
+
+                out.print(a[i]);
+            }
         }
 
     }
@@ -96,7 +135,9 @@ public class C {
         }
 
         public String nextLine() {
-            stringTokenizer = null;
+            if (stringTokenizer != null && stringTokenizer.hasMoreTokens()) {
+                return stringTokenizer.nextToken("");
+            }
 
             try {
                 return bufferedReader.readLine();

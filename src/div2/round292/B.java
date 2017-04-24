@@ -1,4 +1,4 @@
-package round292div2;
+package div2.round292;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

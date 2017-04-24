@@ -1,8 +1,7 @@
-package round294div2;
+package div2.round378;
 
 import java.io.*;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.StringTokenizer;
 
 /**
@@ -32,41 +31,43 @@ public class A {
 
     private static class Solution {
 
-        public void solve() {
-            HashMap<Character, Integer> weightMap = new HashMap<>();
-            weightMap.put('q', 9);
-            weightMap.put('r', 5);
-            weightMap.put('b', 3);
-            weightMap.put('n', 3);
-            weightMap.put('p', 1);
+        private static final char[] V = new char[]{'A', 'E', 'I', 'O', 'U', 'Y'};
 
-            int white = 0, black = 0;
-            for (int i = 0; i < 8; i++) {
-                String line = in.nextLine();
-
-                for (int j = 0; j < 8; j++) {
-                    char c = line.charAt(j);
-
-                    Integer weight = weightMap.get(Character.toLowerCase(c));
-                    if (weight == null) {
-                        continue;
-                    }
-
-                    if (Character.isUpperCase(c)) {
-                        white += weight;
-                    } else {
-                        black += weight;
-                    }
+        private boolean vowel(char c) {
+            for (char v : V) {
+                if (c == v) {
+                    return true;
                 }
             }
 
-            if (white > black) {
-                out.print("White");
-            } else if (white < black) {
-                out.print("Black");
-            } else {
-                out.print("Draw");
+            return false;
+        }
+
+        public void solve() {
+            char[] s = in.nextLine().toCharArray();
+
+            int i = -1,
+                    md = 0;
+
+            for (int j = 0; j < s.length; j++) {
+                if (vowel(s[j])) {
+                    int d = j - i;
+
+                    if (d > md) {
+                        md = d;
+                    }
+
+                    i = j;
+                }
             }
+
+            int d = s.length - i;
+
+            if (d > md) {
+                md = d;
+            }
+
+            out.println(md);
         }
 
     }
@@ -114,7 +115,9 @@ public class A {
         }
 
         public String nextLine() {
-            stringTokenizer = null;
+            if (stringTokenizer != null && stringTokenizer.hasMoreTokens()) {
+                return stringTokenizer.nextToken("");
+            }
 
             try {
                 return bufferedReader.readLine();

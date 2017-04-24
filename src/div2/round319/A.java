@@ -1,4 +1,4 @@
-package round319div2;
+package div2.round319;
 
 import java.io.*;
 import java.util.Arrays;
